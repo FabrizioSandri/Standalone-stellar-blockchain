@@ -49,6 +49,8 @@ services:
         volumes:
           - ./archive:/etc/nginx/conf.d
           - archive-volume:/archive
+        ports:
+          - 2000:2000
 
 volumes:
   archive-volume: 
