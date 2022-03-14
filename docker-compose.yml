@@ -13,6 +13,9 @@ services:
           - ./core:/etc/stellar
         entrypoint: ["/bin/bash", "-c"]
         command: "/etc/stellar/run.sh"
+        ports:
+          - 11625:11625
+          - 11626:11626
 
 
     horizon:
