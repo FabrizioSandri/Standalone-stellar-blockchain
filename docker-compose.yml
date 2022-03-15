@@ -5,12 +5,14 @@ services:
     core:
         image: stellar/stellar-core
         container_name: core
+        user: stellar
         depends_on:
           - core_database
           - archive
         volumes:
-          - archive-volume:/archive
-          - ./core:/etc/stellar
+          - ./archive/data:/archive
+          - ./core/run.sh:/etc/stellar/run.sh
+          - ./core/stellar-core.cfg:/etc/stellar/stellar-core.cfg
         entrypoint: ["/bin/bash", "-c"]
         command: "/etc/stellar/run.sh"
         ports:
@@ -50,10 +52,8 @@ services:
         image: nginx
         container_name: archive
         volumes:
-          - ./archive:/etc/nginx/conf.d
-          - archive-volume:/archive
+          - ./archive/archive_nginx.conf:/etc/nginx/conf.d/archive_nginx.conf
+          - ./archive/data:/srv/archive
         ports:
           - 2000:2000
 
-volumes:
-  archive-volume: 

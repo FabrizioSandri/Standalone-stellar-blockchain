@@ -3,8 +3,8 @@
 # wait for the postgres database
 while !</dev/tcp/core_database/5432; do sleep 1; done; 
 
-# clean up
-rm -rf buckets *.log
+# clean up archive
+rm -rf /archive/*
 
 # Initialization
 echo "================ database initialization ================"
