@@ -17,5 +17,4 @@ stellar-horizon ingest init-genesis-state
 
 echo "================ stellar horizon initialization ================"
 stellar-horizon
-    
-sleep 10000000000
+
