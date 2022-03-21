@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+
+    core:
+        image: stellar/stellar-core
+        container_name: core
+        user: stellar
+        depends_on:
+          - core_database
+          - archive
+        volumes:
+          - ./archive/data:/archive
+          - ./core/run.sh:/etc/stellar/run.sh
+          - ./core/stellar-core.cfg:/etc/stellar/stellar-core.cfg
+        entrypoint: ["/bin/bash", "-c"]
+        command: "/etc/stellar/run.sh"
+        ports:
+          - 11625:11625
+          - 11626:11626
+
+
+    horizon:
+        image: stellar/stellar-horizon
+        container_name: horizon
+        depends_on:
+          - core_database
+          - horizon_database
+        volumes:
+          - ./horizon:/etc/horizon
+        entrypoint: ["/etc/horizon/run.sh"]
+        ports:
+          - 8000:8000
+        
+    core_database:
+        image: postgres
+        container_name: core_database
+        environment:
+          - POSTGRES_USER=stellar
+          - POSTGRES_PASSWORD=stellar
+          - POSTGRES_DB=core
+
+    horizon_database:
+        image: postgres
+        container_name: horizon_database
+        environment:
+          - POSTGRES_USER=stellar
+          - POSTGRES_PASSWORD=stellar
+          - POSTGRES_DB=horizon
+
+    archive:
+        image: nginx
+        container_name: archive
+        volumes:
+          - ./archive/archive_nginx.conf:/etc/nginx/conf.d/archive_nginx.conf
+          - ./archive/data:/srv/archive
+        ports:
+          - 2000:2000
+
