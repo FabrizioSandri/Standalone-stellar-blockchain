@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # wait for the postgres database
+echo "Waiting for the database"
 until PGPASSWORD="stellar" psql -h "core_database" -U "$POSTGRES_USER" -c '\q' "core" 2> /dev/null; do 
   sleep 1
 done
