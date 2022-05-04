@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # wait for the postgres database
-while !</dev/tcp/core_database/5432; do sleep 1; done; 
+until PGPASSWORD="stellar" psql -h "core_database" -U "$POSTGRES_USER" -c '\q' "core" 2> /dev/null; do 
+  sleep 1
+done
 
 # clean up archive
 rm -rf /archive/*
