@@ -52,7 +52,7 @@ services:
         image: nginx
         container_name: archive
         volumes:
-          - ./archive/archive_nginx.conf:/etc/nginx/conf.d/archive_nginx.conf
+          - ./archive/nginx_configuration:/etc/nginx/conf.d
           - ./archive/data:/srv/archive
         ports:
           - 2000:2000
