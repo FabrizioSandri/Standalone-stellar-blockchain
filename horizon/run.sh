@@ -1,15 +1,12 @@
 #!/bin/bash
 
 # wait for the postgres databases 
-while !</dev/tcp/horizon_database/5432; do sleep 1; done; 
-while !</dev/tcp/core_database/5432; do sleep 1; done; 
-
 echo "Waiting for databases"
-until PGPASSWORD="stellar" psql -h "core_database" -U "$POSTGRES_USER" -c '\q' "core" 2> /dev/null; do 
+until PGPASSWORD="stellar" psql -h "core_database" -U "stellar" -c '\q' "core" 2> /dev/null; do 
   sleep 1
 done
 
-until PGPASSWORD="stellar" psql -h "horizon_database" -U "$POSTGRES_USER" -c '\q' "horizon" 2> /dev/null; do 
+until PGPASSWORD="stellar" psql -h "horizon_database" -U "stellar" -c '\q' "horizon" 2> /dev/null; do 
   sleep 1
 done
 echo "Databases ready"

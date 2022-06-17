@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
     core:
         image: stellar/stellar-core
         container_name: core
@@ -18,7 +17,6 @@ services:
         ports:
           - 11625:11625
           - 11626:11626
-
 
     horizon:
         image: stellar/stellar-horizon
